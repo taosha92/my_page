@@ -1,0 +1,22 @@
+---
+title: "Biochem Research"
+output:
+  html_document:
+      toc: true
+      toc_float: true
+---
+
+<img src= "images/Brandizzi.9.10.14-066.jpg" style = "width:60%">
+
+## Lab Manager
+Starting from May 2014, I joined the Brandizzi Lab and did the lab maintainer job besides the research in the first five months. I learned the knowledge of operating a laboratory by budgeting the expenditure. I managed to purchase the chemicals and instruments and designed a new index for outgoings and quotations for our lab. I communicated with the sales managers and technical product support of biochemistry companies discussing the price and new products, which gave me great opportunities to be familiar with the latest and most advanced technologies and equipment in the field. In addition, I trained new lab mates for lab safety and proper use of equipment.
+
+<img src= "images/Brandizzi.9.10.14-195.jpg" style = "width:60%">
+
+## Natural Variation Project
+Meanwhile, I was participating in my first project, the Natural Variation Project. I chose this project to start my career was because this is a long-term project which trains my ability of organization and different lab skills. Our goal is to identify genes responsible for natural variation in the UPR (Unfolded Protein Response), a conserved mechanism, that promotes nascent protein folding, provides the disposal of misfolded proteins or lead to apoptotic death under severe ER (Endoplasmic Reticulum) stress. I analyzed 350 accessions of Arabidopsis thaliana collected from different places of the world for sensitivity to ER stress. Later, we sent these data to a collaborator, Prof Tom Juenger that performed GWAS (Genome-wide association studies) analysis matching the analyzed accessions with the existing SNPs dataset. This GWAS analysis revealed several regions on the chromosomes that contained multiple SNPs associated with variation in the ER stress response. We selected 41 candidate genes putatively responsible for the observed variation in ER stress sensitivity. To functionally characterize these candidate UPR genes, I acquired T-DNA insertion mutants, did genotyping to identify and confirm the homozygous T-DNA insertion lines and tested their sensitivity to ER stress. Using this strategy, we identified novel genes involved in ER stress. 
+
+<img src= "images/Brandizzi.9.10.14-136.jpg" style = "width:60%">
+
+## RHD3 Project
+My other main project was researching on protein RHD3 (ROOT HAIR DEFECTIVE 3) with Dr. Giovanni Stefano. I chose to be part of this project because RHD3 in plants is a functional ortholog of protein Atlastin in metazoans. In mammalian cells, ATL1 (Atlastin GTPase 1) is involved in protein process and distribution in neural system. In human, the gene mutation or ablation could cause Spastic Paraplegia type 3A, which is a disorder characterized by muscle stiffness and weakness in the lower limbs. Using a much simpler ortholog RHD3 and plant model Arabidopsis thaliana is an interesting and unique way to solve the pathology problem. We designed experiments to test RHD3’s real function, the relationship with other proteins, and the interaction with its partners in the membrane. I did yeast two-hybrid to select the possible interactor candidates. Cloning, transforming, infiltration, and the Agrobacterium-mediated transient expression in tobacco leaves under confocal microscopy gave me the location of this protein. I then obtain T-DNA insertion lines of Arabidopsis thaliana for phenotype analysis. I did stable transformation of Arabidopsis thaliana by floral dipping and EMS (Ethyl Methanesulfonate) mutation to study the protein-protein interaction in gene level. At last, the pull-down experiments and the protein binding experiments were done to prove the interaction in vitro. 

@@ -1,0 +1,71 @@
+---
+title: "Resume"
+output:
+  html_document:
+      toc: true
+      toc_float: true
+---
+
+## Education
+### Columbia University, Mailman School of Public Health
+Expected May 2019
+
+* Master of Public Health (MPH), Biostatistics
+* Certificate in Advanced Epidemiology
+Relevant Courses: Data Science, Statistical Computing with SAS, Categorical Data, Applied Regression.
+
+### Michigan State University                                                                             
+May 2016
+
+* Bachelor of Science (BS), Biochemistry & Molecular Biology
+* Pamela J. Fraker Undergraduate Scholarship
+
+## Professional Experience
+### MSU Biochemistry Department, East Lansing, MI                                               
+Nov 2016 – Apr 2017\
+Research Assistant
+
+* Analyzed the crystal structure of PIP4K by using Microbatch technique.
+* Researched the regulation mechanism by PIP4K’s binding partners and lipid molecules 
+
+### MSU-DOE Plant Research Laboratory, East Lansing, MI
+May 2014 – Jun 2016\
+Undergraduate Research Assistant  
+
+* Planted more than 1 million seeds in sterile hoods for Natural Variation Project.
+* Performed GWAS (Genome-wide association studies) analysis matching the analyzed accessions with the existing SNPs dataset.
+* Designed experiments to test gene RHD3’s real function, and the interaction with other proteins.
+
+### MSU Biochemistry Department, East Lansing, MI                                               
+May 2015 – Jul 2015\
+Undergraduate Research Assistant 
+
+* Studied the molecular dynamics stimulation of proteins fHbp, examined the differences between human and mice fHbp, and estimated the binding affinity of humanized mice proteins.
+* Analyzed proteins’ three-dimensional structure using software such as PyMol and VMD.
+
+### MSU-DOE Plant Research Laboratory, East Lansing, MI 
+May 2014 – Sep 2014\
+Lab Technician
+
+* Budgeted the expenditure, purchased the chemicals and instruments and designed a new index for outgoings and quotations.
+* Communicated with the sales managers and technical product support of biochemistry companies discussing the price and new products.
+* Contributed to lab safety by handling broken glass, autoclave, and biohazardous waste, and arranging EHS pickup.
+* Trained new lab mates for safety and proper use of equipment.
+
+## Volunteer Leadership
+### MianZhu Emergency Center, Szechwan, China                                                  
+May 2008 – Jun 2008\
+Teacher of Primary School and Volunteer of the Organization “On the Way”       
+
+* Assembled movable houses and dismantled dilapidated buildings. 
+* Taught 50 children in the temporary primary school.
+
+## Skills and Certificate
+* Computing Skills: Proficient with MS Office, Intermediate level of SAS (with SAS Base Certificate).
+Beginner level of R, Python and AutoCAD.
+* Lab Skills: Polymerase Chain Reaction, ELISA, Western Blotting, molecular cloning, etc. 
+* Language: Bilingual in Mandarin and Shanghainese, fluent English.
+* Music: Level 10 certification of piano and level 4 certification of clarinet.
+
+
+My full CV is available [here](files/Resume_Sha_Tao.pdf)

@@ -1,0 +1,112 @@
+---
+title: "dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+```
+
+```{r packages}
+library(tidyverse)
+library(janitor)
+library(stringr)
+library(forcats)
+library(viridis)
+library(plotly)
+library(p8105.datasets)
+```
+
+
+```{r load_datasets}
+
+# load instacart
+ny_noaa = ny_noaa
+
+# extract year, month and day from date, and do some unit convertion
+
+noaa = 
+  ny_noaa %>% 
+    mutate(year = strftime(date, "%Y"),
+           month = strftime(date, "%B"),
+           month = as.factor(month),
+           month = factor(month, levels = c("January", "February", "March", "April", "May", "June",
+                                            "July", "August", "September", "October", "November", "December")),
+           day = strftime(date, "%d"),
+           prcp = prcp / 10,
+           snow = as.numeric(snow),
+           snwd = as.numeric(snwd),
+           tmax = as.numeric(tmax) / 10,
+           tmin = as.numeric(tmin) / 10) %>% 
+    select(id, year, month, day, prcp_mm = prcp, snow_mm = snow, snwd_mm = snwd, tmax_c = tmax, tmin_c = tmin)
+
+```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Bar Chart
+
+```{r bar chart}
+
+# check the change of total snowfall in winter in NY (Nov, Dec, Jan, Feb, Mar) in each year.
+
+noaa %>% 
+  filter(month == "November" | month == "December" | month == "January" |
+         month == "February" | month == "March") %>% 
+  group_by(year, month) %>% 
+  summarize(total_snow = sum(snow_mm, na.rm = TRUE)) %>% 
+  plot_ly(x = ~year, y = ~total_snow, color = ~month, type = "bar") %>% 
+  layout(title = 'Total Snowfall in Winter Each Year',
+         xaxis = list(title = "Year"), 
+         yaxis = list(title = 'Total Snowfall in mm'), 
+         barmode = 'stack')
+
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Lineplot
+
+```{r lineplot}
+
+# check the average highest and lowest temperature change each year.
+
+noaa %>% 
+  group_by(year) %>% 
+  summarize(mean_tmax = mean(tmax_c, na.rm = TRUE),
+            mean_tmin = mean(tmin_c, na.rm = TRUE)) %>%
+  gather(key = type, value = value, mean_tmax, mean_tmin) %>% 
+  plot_ly(x = ~year, y = ~value, color = ~type, type = 'scatter', mode = 'lines') %>% 
+  layout(title = 'Average Highest and Lowest Temperature Each Year',
+         xaxis = list(title = "Year"), 
+         yaxis = list(title = 'Average Temperature in celsius degree'))
+
+```
+
+
+### Bar chart
+
+```{r boxplot}
+
+# check the order time and day of the week pattern.
+
+noaa %>% 
+  filter(!is.na(prcp_mm)) %>% 
+  group_by(year, month) %>% 
+  summarize(total_prcp = sum(prcp_mm)) %>% 
+  plot_ly(x = ~year, y = ~total_prcp, type = "box") %>% 
+  layout(title = 'Total Precipitation Each Year',
+         xaxis = list(title = "Year"), 
+         yaxis = list(title = 'Total Precipitation in mm'))
+
+```
+
+
+
+
+

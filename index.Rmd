@@ -1,0 +1,42 @@
+---
+title: "Sha Tao"
+output:
+  html_document
+---
+
+<img src= "images/IMG_0960.jpg" style = "width:30%; border:10px solid; margin-right: 20px" align = "left">
+
+I'm a second-year graduate student at [Columbia University](https://www.columbia.edu/) major in Biostatistics. Currently I'm doing research on topic [cognitive reserve](https://www.health.harvard.edu/mind-and-mood/what-is-cognitive-reserve) in Alzheimer's disease, and performing neuro-image data analysis at [New York State Psychiatric Institute](https://nyspi.org/).
+
+I graduated from [Michigan State University](https://msu.edu/) with a BS in biochemisty and molucular biology in 2016. I've studied plant gene RHD3 for years.
+
+I'd like to be a data scientist!
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+Here's a working sample (Homework 4) Dashboard, [take a look](dashboard.html)!
+
+Summary:
+
+1. Bar Chart: Total Snowfall in Winter Each Year.\
+From the plot, we can see that year 2010 has the highest amount of snowfall overall.\
+January have relatively stable and large amount of snowfall, while November have the lowest amount of snowfall in winter. \
+The other three months in winter have a wider range of snowfall.
+
+2. Lineplot: Average Highest and Lowest Temperature Each Year.\
+From the plot, we can see that the average highest temperature and lowest temperature each year have the same pattern across years.\
+The peck of both happened in 1998, with average highest temperature at 15.38 celsius degree and minimum temperature at 4.61 celsius degree.\
+Both highest and lowest temperature are relatively stable across years.
+
+3. Boxplot: Total Precipitation Each Year.\
+Year 2010 has the highest median precipitation around 30.21k mm, with a highest monthly precipitation (outlier) at 67.83k.\
+The total precipitation was stable before 2007, and increased in 2008, 2009 and 2010.
+
