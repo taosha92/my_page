@@ -1,0 +1,10 @@
+---
+title: "Error & Solution"
+output:
+  html_document:
+      toc: true
+      toc_float: true
+---
+
+## Access denied (Error 403) at pushing after changing GitHub Account
+It happend when I started working on a new GitHub Account, and I was not able to push the change to the new account. Assume all the GitHub repository and R-project setting was right, the problem was the credential I was using was for the last account. For Windows user, the solution is to search the "Credential Manager", and in the tab "Windows Credentials" you'll see your old GitHub account. Delete it, and then push again, you'll be asked to enter the new user name and password.

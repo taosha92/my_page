@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 64px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+
+.section h2 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h3 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h4 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h5 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h6 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="resume.html">Resume</a>
+</li>
+<li>
+  <a href="biochem.html">Biochem Research</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="mailto:&lt;taosha33@outlook.com&gt;">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="http://github.com/st3117/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://twitter.com/taosha33">
+    <span class="fa fa-twitter fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://www.linkedin.com/in/sha-tao-1787b3a7/">
+    <span class="fa fa-linkedin fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<div id="p8105_hw5_st3117" class="section level1">
+<h1>p8105_hw5_st3117</h1>
+<p>Sha Tao November 5, 2018</p>
+<div id="problem-1_1-data-loading" class="section level2">
+<h2>Problem 1_1 Data Loading</h2>
+<pre class="r"><code>read_csv_hw5 = function(x) {
+  
+  read_csv(x) %&gt;% 
+    mutate(name = x)
+
+}
+
+file_list = list.files(&quot;./data/&quot;) %&gt;% paste0(&quot;./data/&quot;, .)
+
+study = map_dfr(file_list, read_csv_hw5) %&gt;% 
+  mutate(arm = ifelse(str_detect(name, &quot;con&quot;) == TRUE, &quot;control&quot;, &quot;experimental&quot;),
+         subject_id = substr(name, 12, 13)) %&gt;% 
+  gather(key = week, value = value, week_1:week_8) %&gt;% 
+  mutate(week = str_replace(week, &quot;week_&quot;, &quot;&quot;),
+         subject_id = as.factor(subject_id),
+         week = as.integer(week)) %&gt;% 
+  select(subject_id, arm, week, value) %&gt;% 
+  arrange(subject_id, arm, week)</code></pre>
+<p>The dataset study after clean has 4 columns and 160 rows. This dataset contains two arms, each records 10 subjects across 8 weeks.</p>
+</div>
+<div id="problem-1_2-spaghetti-plots" class="section level2">
+<h2>Problem 1_2 Spaghetti Plots</h2>
+<pre class="r"><code>ggplot(study, aes(x = week, y = value, color = subject_id)) +
+  geom_line() +
+  facet_grid(.~ arm) +
+  labs(
+    title = &quot;Value Change with Time in Control and Experimental Arms&quot;,
+    x = &quot;Week&quot;,
+    y = &quot;Value&quot;
+    )</code></pre>
+<p><img src="p8105_hw5_st3117_files/figure-markdown_github/p1_spaghetti_plot-1.png" width="100%" /></p>
+<p>The subjects in control arms started at the range of (0, 2.5), and ended up at approximately the same range at 8 week, while the subjects in experimental arms started at the range of (-0.5, 3.75), and ended up at the range of (3.5, 7). In other words, there is no apparent change of value with time in control arms, while there is increasing in experimental arm.</p>
+</div>
+<div id="problem-2_1-data-loading" class="section level2">
+<h2>Problem 2_1 Data Loading</h2>
+<pre class="r"><code>p2_dataset = 
+  RCurl::getURL(&quot;https://raw.githubusercontent.com/washingtonpost/data-homicides/master/homicide-data.csv&quot;) %&gt;%
+    read_csv()</code></pre>
+</div>
+<div id="problem-2_2-data-cleaning" class="section level2">
+<h2>Problem 2_2 Data Cleaning</h2>
+<pre class="r"><code>homicides =
+  p2_dataset %&gt;% 
+  mutate(reported_year = as.integer(substr(reported_date, 1, 4)),
+         reported_month = month.abb[as.integer(substr(reported_date, 5, 6))],
+         reported_day = as.integer(substr(reported_date, 7, 8)),
+         victim_race = as.factor(victim_race),
+         victim_age = as.integer(victim_age),
+         victim_sex = as.factor(victim_sex),
+         city_state = paste(paste0(city, &quot;,&quot;), state)) %&gt;% 
+  select(uid, reported_year, reported_month, reported_day, victim_last:victim_sex, city_state, lat:disposition)</code></pre>
+</div>
+<div id="problem-2_3-data-exploring" class="section level2">
+<h2>Problem 2_3 Data Exploring</h2>
+<pre class="r"><code>homicides %&gt;% 
+  select(uid, reported_year, reported_month, reported_day, victim_race, victim_age, victim_sex, city_state,
+         lat, lon, disposition) %&gt;% 
+  skimr::skim()</code></pre>
+<pre><code>## Skim summary statistics
+##  n obs: 52179 
+##  n variables: 11 
+## 
+## -- Variable type:character --------------------------------------------------------------------------------------------
+##        variable missing complete     n min max empty n_unique
+##      city_state       0    52179 52179   9  18     0       51
+##     disposition       0    52179 52179  14  21     0        3
+##  reported_month       0    52179 52179   3   3     0       12
+##             uid       0    52179 52179   9  10     0    52179
+## 
+## -- Variable type:factor -----------------------------------------------------------------------------------------------
+##     variable missing complete     n n_unique
+##  victim_race       0    52179 52179        6
+##   victim_sex       0    52179 52179        3
+##                                   top_counts ordered
+##  Bla: 33361, His: 6901, Whi: 6333, Unk: 4199   FALSE
+##      Mal: 40739, Fem: 7209, Unk: 4231, NA: 0   FALSE
+## 
+## -- Variable type:integer ----------------------------------------------------------------------------------------------
+##       variable missing complete     n    mean    sd   p0  p25  p50  p75
+##   reported_day       0    52179 52179   15.83  8.91    1    8   16   23
+##  reported_year       0    52179 52179 2012.33  3.17 2007 2010 2012 2015
+##     victim_age    2999    49180 52179   31.8  14.42    0   22   28   40
+##  p100     hist
+##    31 &lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2586&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2587&gt;
+##  2017 &lt;U+2586&gt;&lt;U+2582&gt;&lt;U+2583&gt;&lt;U+2587&gt;&lt;U+2583&gt;&lt;U+2583&gt;&lt;U+2583&gt;&lt;U+2587&gt;
+##   102 &lt;U+2581&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2583&gt;&lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;
+## 
+## -- Variable type:numeric ----------------------------------------------------------------------------------------------
+##  variable missing complete     n   mean    sd      p0    p25    p50    p75
+##       lat      60    52119 52179  37.03  4.35   25.73  33.77  38.52  40.03
+##       lon      60    52119 52179 -91.47 13.75 -122.51 -96    -87.71 -81.76
+##    p100     hist
+##   45.05 &lt;U+2581&gt;&lt;U+2583&gt;&lt;U+2582&gt;&lt;U+2585&gt;&lt;U+2583&gt;&lt;U+2587&gt;&lt;U+2586&gt;&lt;U+2581&gt;
+##  -71.01 &lt;U+2583&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2582&gt;&lt;U+2583&gt;&lt;U+2587&gt;&lt;U+2585&gt;&lt;U+2585&gt;</code></pre>
+<p>The dataset homicides contains 160 observations. There are 2999 missing observations in victim_age, and 60 missing observations in latitude and longitude each.  The mean victim age is 31.8 while median is 28. Black victims number (33361) is unproportionally larger than all the other race combined. There were 40739 male victims, and 7209 female victims in total.</p>
+</div>
+<div id="problem-2_4-count-homicides" class="section level2">
+<h2>Problem 2_4 Count Homicides</h2>
+<pre class="r"><code>total_homicides = 
+  homicides %&gt;%
+  group_by(city_state) %&gt;% 
+  summarize(total_n = n())
+
+unsolved_homicides = 
+  homicides %&gt;% 
+  filter(disposition == &quot;Closed without arrest&quot; | disposition == &quot;Open/No arrest&quot;) %&gt;% 
+  group_by(city_state) %&gt;% 
+  summarize(unsolved_n = n())
+
+# join total_homicides and unsolved_homicides into one dataframe
+count_homicides =
+  inner_join(total_homicides, unsolved_homicides, by = &quot;city_state&quot;)</code></pre>
+</div>
+<div id="problem-2_5-baltimore-md" class="section level2">
+<h2>Problem 2_5 Baltimore, MD</h2>
+<pre class="r"><code># filter Baltimore  
+baltimore_homicides = 
+  count_homicides %&gt;% 
+  filter(city_state == &quot;Baltimore, MD&quot;)
+
+# compute the Baltimore proportion test
+baltimore_prop = 
+  prop.test(baltimore_homicides$unsolved_n, baltimore_homicides$total_n)
+
+# save baltimore_prop as an object
+save(baltimore_prop, file = &quot;Baltimore_prop_test.RData&quot;)
+
+# broom tidy, select only parameter estimate, and 95% CI
+baltimore_prop =
+  baltimore_prop %&gt;% 
+  broom::tidy() %&gt;% 
+  select(estimate, conf.low, conf.high)
+
+# Display Baltimore proportion test table
+baltimore_prop %&gt;% 
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">estimate</th>
+<th align="right">conf.low</th>
+<th align="right">conf.high</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.6455607</td>
+<td align="right">0.6275625</td>
+<td align="right">0.6631599</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="problem-2_6-all-city" class="section level2">
+<h2>Problem 2_6 All City</h2>
+<pre class="r"><code># create function for all city proportion test
+allcity_prop_test = function(x){
+  
+  city_homicides = 
+    count_homicides %&gt;% 
+    filter(city_state == x)
+  
+  prop.test(city_homicides$unsolved_n, city_homicides$total_n) %&gt;% 
+    broom::tidy() %&gt;% 
+    select(estimate, conf.low, conf.high)
+}
+
+# compute city proportion test
+city_prop = 
+  tibble(city_state = count_homicides$city_state) %&gt;% 
+  mutate(map(.x = count_homicides$city_state, ~allcity_prop_test(.x))) %&gt;% 
+  unnest</code></pre>
+</div>
+<div id="problem-2_7-proportion-and-95-ci-plot" class="section level2">
+<h2>Problem 2_7 Proportion and 95% CI Plot</h2>
+<pre class="r"><code>city_prop %&gt;% 
+  ggplot(aes(x = reorder(city_state, estimate), y = estimate)) +
+    geom_point() +
+    geom_errorbar(aes(ymin = conf.low, ymax = conf.high)) +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.3, size = 7)) +
+    labs(
+      x = &quot;City&quot;,
+      y = &quot;Proportion&quot;,
+      title = &quot;Proportion of unsolved cases for cities&quot;
+    )</code></pre>
+<p><img src="p8105_hw5_st3117_files/figure-markdown_github/p2_proportion_plot-1.png" width="100%" /></p>
+<p>Chicago, New Orleans and Baltimore had the three highest proportion of parameter estimates while had a relatively small 95% confidence interval. Among them, Chigago had significantly higher proportion than the others. Richmond, Charlotte and Memphis had the three lowest proportion of parameter estimates.</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
