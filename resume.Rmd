@@ -8,7 +8,7 @@ output:
 
 ## Education
 ### Columbia University, Mailman School of Public Health
-Expected May 2019
+May 2019
 
 * Master of Public Health (MPH), Biostatistics
 * Certificate in Advanced Epidemiology
