@@ -1,0 +1,104 @@
+---
+title: "Data Manipulation"
+output:
+  html_document:
+      toc: true
+      toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r problem1_1 }
+
+set.seed(1)
+
+# Create a data frame including:
+# 1. A random sample of size 10 from a uniform [0, 5] distribution
+# 2. A logical vector indicating whether elements of the sample are greater than 2
+# 3. A (length-10) character vector
+# 4. A (length-10) factor vector
+data1 = tibble(
+  vec_unif = runif(10, min = 0, max = 5),
+  vec_logical = vec_unif > 2,
+  vec_char = c("My", "name", "is", "Sha", "Tao", "and", "I", "like", "Data", "Science"),
+  vec_factor = factor(c("low", "low", "low", "high", "high", "low", "low", "low", "high", "high"))
+)
+
+# Try to take the mean of the numeric variable
+mean(data1$vec_unif)
+
+# Try to take the mean of the logical variable
+mean(data1$vec_logical)
+
+# mean(data1$vec_char) doesn't work
+# mean(vec_factor) doesn't work
+```
+
+The first two vectors work because a uniform [0, 5] distribution is numeric, and "true" and "false" in logical vectors are treated as 1 and 0. \
+Means cannot be taken from the character vector and factor vector.
+
+
+## Problem 1_2 The chunk below converts variables from one type to another.
+
+```{r problem 1_2, results = "hide"}
+
+#applies the as.numeric function to the logical, character, and factor variables
+as.numeric(data1$vec_logical)
+as.numeric(data1$vec_char)
+as.numeric(data1$vec_factor)
+
+```
+
+logical vector can be convert to numeric, and "true" and "flase"" are treated as 1 and 0.\
+For factor vectors, R re-orders the factors alphabetically, and assigns numeric numbers to each level. In my case, it assigns 1 to "high" and 2 to "low"."\
+Function as.numeric cannot treat character vector in my case and it returns 10 "NA"s. However, if I use number "1", "2" as my character vector, then it will return as numeric vector 1, 2.
+
+
+## Problem 1_3 The chunk below does a two-step converting.
+
+```{r problem 1_3}
+
+# Convert character variable from character to factor to numeric
+as.numeric(as.factor(data1$vec_char))
+
+# Convert factor variable from factor to character to numeric
+as.numeric(as.character(data1$vec_factor))
+```
+
+In the first case, function as.factor converts my character vector to a factor vector. Then function as.numeric reorders the  factors alphabetically, and assigns numeric numbers to each level.\
+In the second case, function as.character converts my factor vector to a character vector, thus cannot be treated and returns 10 "NA"s.
+
+
+## Problem 2_1 The chunks below creates a data frame for later plotting.
+
+```{r problem 2_1}
+
+set.seed(2)
+
+# Create a random sample x of size 1000 from a standard Normal distribution
+x = rnorm(1000)
+
+# Create a random sample y of size 1000 from a standard Normal distribution
+y = rnorm(1000)
+
+# Create a data frame including:
+# 1. x  2. y
+# 3. A logical vector indicating whether the x + y > 0
+# 4. A numeric vector by coercing the above logical vector
+# 5. A factor vector created by coercing the above logical vector
+data2 = tibble(
+  x,
+  y,
+  xy_logical = x + y > 0,
+  xy_numeric = as.numeric(xy_logical),
+  xy_factor = as.factor(xy_numeric)
+)
+
+```
+
+The dataset "data2" is a `r ncol(data2)` by `r nrow(data2)` table.\
+The mean of the variable x is `r round(mean(data2$x), digit = 2)`, while the median of the variable x is `r round(median(data2$x), digit = 2)`.\
+There is `r (sum(data2$xy_numeric)/1000)*100`% of cases which the logical vector "x + y > 0" is true.
+

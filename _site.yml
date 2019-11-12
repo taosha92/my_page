@@ -5,6 +5,9 @@ navbar:
   left:
     - text: "R"
       href: r.html 
+      menu:
+        - text: "R Markdown Brief Review"
+          href: r-rmarkdown.html
     - text: "Resume"
       href: resume.html
     - text: "Biochem Research"
