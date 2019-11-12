@@ -11,7 +11,7 @@
 
 
 
-<title>R Markdown Brief Review</title>
+<title>About Me</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,9 +19,6 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -172,101 +169,6 @@ $(document).ready(function () {
 
 
 
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
-
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-  padding-left: 25px;
-  text-indent: 0;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
-
-
 
 
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
@@ -334,50 +236,19 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">R Markdown Brief Review</h1>
+<h1 class="title toc-ignore">About Me</h1>
 
 </div>
 
 
-<div id="code-chunks-and-snippets" class="section level2">
-<h2>Code chunks and snippets</h2>
-<p>The hotkeys for inserting code chunk are <span> Ctrl + Alt + I </span>, while the hotkeys for knitting are Ctrl + Shift + K.<br />
-Always give the chunk a name <span> {r chunk_name} </span>, so when we have bugs, we can look back and find that chunk immediately.</p>
-<p>Beyond the name, we can customize the behavior of your code chunk via options defined in the chunk header. Some common options are:</p>
-<ul>
-<li>eval = FALSE: code will be displayed but not executed; results are not included.</li>
-<li>echo = FALSE: code will be executed but not displayed; results are included.</li>
-<li>include = FALSE: code will be executed but not displayed; results are not included. (This is common for load the libraries)</li>
-<li>message = FALSE and warning = FALSE: prevents messages and warnings from being displayed. (This is common for the steps that produces unimportatnt messages and warnings)</li>
-<li>results = hide and fig.show = hide: prevents results and figures from being shown, respectively. (There are few more commands for the figures)</li>
-<li>collapse = TRUE: output will be collapsed into a single block at shown at the end of the chunk.</li>
-<li>error: errors in code will stop rendering when FALSE; errors in code will be printed in the doc when TRUE. The default is FALSE and you should almost never change it.</li>
-</ul>
-<p>Inserting brief code snippets inline is often helpful; we can use them for a brief summary of the sample size or statistics in text by inserting code inline using <span> <code>r</code> </span>, often in conjunction with the format() function to clean up the output.</p>
-</div>
-<div id="problems" class="section level2">
-<h2>Problems</h2>
-<div id="line-break" class="section level4">
-<h4>1. Line break</h4>
-<p>To force a line break, there are several easy ways. We can simply place two empty spaces at the end of a line, however, it’s hard to tell when we edit the file. The way I use is to place a backslash at the end of the line.</p>
-</div>
-<div id="bulletpoints" class="section level4">
-<h4>2. Bulletpoints</h4>
-<p>Sometimes when we use * for the bulletpoints it won’t work. It is because that it needs a blank line before the list in R Markdown if it is not directly after a header or by itself.</p>
-</div>
-</div>
-<div id="resources" class="section level2">
-<h2>Resources</h2>
-<ul>
-<li><a href="https://rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf">R Markdown Cheatsheet</a></li>
-<li><a href="https://markdown-guide.readthedocs.io/en/latest/basics.html#blockquotes">R Markdown Basics</a></li>
-</ul>
-</div>
+<p><img src= "images/IMG_0960.JPG" style = "width:30%; border:10px solid; margin-right: 20px" align = "left"></p>
+<p>I’m a Biostatistician / Data Analyst working at <a href="https://drexel.edu/autisminstitute/">A.J. Drexel Autism Institute</a> Policy and Analytics Center (PAC). The mission of the PAC is to utilize research methods and innovative analytic strategies to support the development of effective social and health policy in cities, states, and across the US.</p>
+<p>I graduated from Columbia University in 2019 with a master degree in Biostatistics. I also had a certificate in Advanced Epidemiology. My research was on the topic <a href="https://www.health.harvard.edu/mind-and-mood/what-is-cognitive-reserve">cognitive reserve</a> in Alzheimer’s disease, and performing neuro-image data analysis at <a href="https://nyspi.org/">New York State Psychiatric Institute</a>.</p>
+<p>I graduated from Michigan State University with a BS in biochemisty and molucular biology in 2016. I was doing plant research at that time, and studied gene RHD3 for years.</p>
+<p>I’m a Python, R and SAS programmer. I’d like to be a data scientist!</p>
 
 
 
-</div>
-</div>
 
 </div>
 

@@ -12,13 +12,15 @@ navbar:
       href: resume.html
     - text: "Biochem Research"
       href: biochem.html
+    - text: "About Me"
+      href: about.html
   right:
     - icon: fa-envelope fa-lg
       href: mailto:<taosha33@outlook.com>
     - icon: fa-github fa-lg
       href: http://github.com/st3117/
-    - icon: fa-twitter fa-lg
-      href: https://twitter.com/taosha33
+    - icon: fa-facebook fa-lg
+      href: https://www.facebook.com/profile.php?id=100004233067528
     - icon: fa-linkedin fa-lg
       href: https://www.linkedin.com/in/sha-tao-1787b3a7/
 output:
