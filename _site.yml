@@ -7,7 +7,11 @@ navbar:
       href: r.html 
       menu:
         - text: "R Markdown Brief Review"
-          href: r-rmarkdown.html
+          href: r_rmarkdown.html
+        - text: "Data Import"
+          href: r_data_import.html
+        - text: "Data Manipulation"
+          href: r_data_manipulation.html
     - text: "Resume"
       href: resume.html
     - text: "Biochem Research"
