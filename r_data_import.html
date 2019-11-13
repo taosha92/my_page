@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Data Import</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 64px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+
+.section h2 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h3 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h4 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h5 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h6 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    R
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="r_rmarkdown.html">R Markdown Brief Review</a>
+    </li>
+    <li>
+      <a href="r_data_import.html">Data Import</a>
+    </li>
+    <li>
+      <a href="r_data_manipulation.html">Data Manipulation</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="biochem.html">Biochem Research</a>
+</li>
+<li>
+  <a href="about.html">About Me</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="mailto:&lt;taosha33@outlook.com&gt;">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="http://github.com/st3117/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://www.facebook.com/profile.php?id=100004233067528">
+    <span class="fa fa-facebook fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://www.linkedin.com/in/sha-tao-1787b3a7/">
+    <span class="fa fa-linkedin fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Data Import</h1>
+
+</div>
+
+
+<div id="library" class="section level3">
+<h3>Library</h3>
+<p>The library I use almost all the time is <code>tidyverse</code> (there might be some conflicts with other specific packages, I’ll mention that in later chapters). The <code>dplyer</code> package within are the main one we’re going to use for data wrangling.</p>
+</div>
+<div id="path" class="section level3">
+<h3>Path</h3>
+<p>People have different preferences over using absolute paths or relative path. They both have their pros and cons. Since I always suggest using R projects, a relative path makes more sense in our case. If you are already in the R project, then a relative path can start with a “.” indicating the current directory. For example, if I need to call some pups’ dataset in this folder, I can do “./data/r_data_import/FAS_litters.csv”. I always have a data folder in the project file to keep data. If we don’t know our current working directory, we can use:</p>
+<pre class="r"><code>getwd()</code></pre>
+<pre><code>## [1] &quot;D:/Study/R Projects/taosha92.github.io&quot;</code></pre>
+<p><code>~</code> stands for home directory, and <code>.</code> stands for current working directly.</p>
+</div>
+<div id="import-data" class="section level3">
+<h3>Import data</h3>
+<p>First let’s check the most common csv files.</p>
+<pre class="r"><code>litters_data = read_csv(file = &quot;./data/r_data_import/FAS_litters.csv&quot;)</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   Group = col_character(),
+##   `Litter Number` = col_character(),
+##   `GD0 weight` = col_double(),
+##   `GD18 weight` = col_double(),
+##   `GD of Birth` = col_integer(),
+##   `Pups born alive` = col_integer(),
+##   `Pups dead @ birth` = col_integer(),
+##   `Pups survive` = col_integer()
+## )</code></pre>
+<pre class="r"><code>head(litters_data)</code></pre>
+<pre><code>## # A tibble: 6 x 8
+##   Group `Litter Number` `GD0 weight` `GD18 weight` `GD of Birth`
+##   &lt;chr&gt; &lt;chr&gt;                  &lt;dbl&gt;         &lt;dbl&gt;         &lt;int&gt;
+## 1 Con7  #85                     19.7          34.7            20
+## 2 Con7  #1/2/95/2               27            42              19
+## 3 Con7  #5/5/3/83/3-3           26            41.4            19
+## 4 Con7  #5/4/2/95/2             28.5          44.1            19
+## 5 Con7  #4/2/95/3-3             NA            NA              20
+## 6 Con7  #2/2/95/3-2             NA            NA              20
+## # ... with 3 more variables: `Pups born alive` &lt;int&gt;, `Pups dead @
+## #   birth` &lt;int&gt;, `Pups survive` &lt;int&gt;</code></pre>
+<p>I almost always use <code>janitor::clean_names()</code> to clean up variable names after importing data. Doing so will take whatever the column names are and convert them to lower snake case. The general rules for the variable names are <code>all lowercases</code>, <code>no space</code> and <code>easy to understand</code>.</p>
+<pre class="r"><code>names(litters_data)</code></pre>
+<pre><code>## [1] &quot;Group&quot;             &quot;Litter Number&quot;     &quot;GD0 weight&quot;       
+## [4] &quot;GD18 weight&quot;       &quot;GD of Birth&quot;       &quot;Pups born alive&quot;  
+## [7] &quot;Pups dead @ birth&quot; &quot;Pups survive&quot;</code></pre>
+<pre class="r"><code>litters_data = janitor::clean_names(litters_data)
+names(litters_data)</code></pre>
+<pre><code>## [1] &quot;group&quot;           &quot;litter_number&quot;   &quot;gd0_weight&quot;      &quot;gd18_weight&quot;    
+## [5] &quot;gd_of_birth&quot;     &quot;pups_born_alive&quot; &quot;pups_dead_birth&quot; &quot;pups_survive&quot;</code></pre>
+<p>The <code>package::function</code> syntax lets us use a function from a package without loading the whole library. That’s really helpful, because some packages have functions with the same name (e.g. <code>dplyr::filter</code> and <code>stats::filter</code>), and R has to choose which one we mean. In general, a good habit is to only load the packages we need to prevent this kind of confusion.</p>
+</div>
+<div id="arguments-to-read_" class="section level3">
+<h3>Arguments to <code>read_*</code></h3>
+<p>In the best case, the data are stored in the csv without any weirdness – there are no blank lines or columns, the first row is the variable name, missing values are stored in sensible ways. When this isn’t the case, arguments to <code>read_csv</code> are helpful. The ones I use frequently are:</p>
+<ul>
+<li><code>col_names</code>: usually <code>TRUE</code>. If <code>FALSE</code>, column names are <code>X1</code>, <code>X1</code>, …. We can also supply column names if needed.</li>
+<li><code>na</code>: string vector containing character expressions for missing values.</li>
+<li><code>skip</code>: number of rows to skip before reading data.</li>
+<li><code>col_types</code>: assign column types to the variables.</li>
+</ul>
+<p>The <code>read_*</code> functions will attempt to guess the data type stored in each column; by default, these guesses are based on the first 1000 rows. The guesses are also usually pretty good. In some cases, though, we’ll want to give explicit column specifications. This is done using the <code>cols</code> function, and each column is given a column type:</p>
+<pre class="r"><code>litters_data = read_csv(file = &quot;./data/r_data_import/FAS_litters.csv&quot;,
+  col_types = cols(
+    Group = col_character(),
+    `Litter Number` = col_character(),
+    `GD0 weight` = col_double(),
+    `GD18 weight` = col_double(),
+    `GD of Birth` = col_integer(),
+    `Pups born alive` = col_integer(),
+    `Pups dead @ birth` = col_integer(),
+    `Pups survive` = col_integer()
+  )
+)
+head(litters_data)</code></pre>
+<pre><code>## # A tibble: 6 x 8
+##   Group `Litter Number` `GD0 weight` `GD18 weight` `GD of Birth`
+##   &lt;chr&gt; &lt;chr&gt;                  &lt;dbl&gt;         &lt;dbl&gt;         &lt;int&gt;
+## 1 Con7  #85                     19.7          34.7            20
+## 2 Con7  #1/2/95/2               27            42              19
+## 3 Con7  #5/5/3/83/3-3           26            41.4            19
+## 4 Con7  #5/4/2/95/2             28.5          44.1            19
+## 5 Con7  #4/2/95/3-3             NA            NA              20
+## 6 Con7  #2/2/95/3-2             NA            NA              20
+## # ... with 3 more variables: `Pups born alive` &lt;int&gt;, `Pups dead @
+## #   birth` &lt;int&gt;, `Pups survive` &lt;int&gt;</code></pre>
+<p>Column parsing also allows a shorthand for almost every data type. the common shorthands are follow:</p>
+<ul>
+<li><code>col_logical()</code> = l, <code>col_integer()</code> = i, <code>col_double()</code> = d, <code>col_character()</code> = c, <code>col_factor(levels, ordered)</code> = f, <code>col_date(format = &quot;&quot;)</code> = D. For detailed instruction, <a href="https://readr.tidyverse.org/articles/readr.html">check here</a>.</li>
+</ul>
+<p>So we can simply enter the shorthands for column types:</p>
+<pre class="r"><code>litters_data = read_csv(file = &quot;./data/r_data_import/FAS_litters.csv&quot;,
+  col_types = &quot;ccddiiii&quot;
+)
+head(litters_data)</code></pre>
+<pre><code>## # A tibble: 6 x 8
+##   Group `Litter Number` `GD0 weight` `GD18 weight` `GD of Birth`
+##   &lt;chr&gt; &lt;chr&gt;                  &lt;dbl&gt;         &lt;dbl&gt;         &lt;int&gt;
+## 1 Con7  #85                     19.7          34.7            20
+## 2 Con7  #1/2/95/2               27            42              19
+## 3 Con7  #5/5/3/83/3-3           26            41.4            19
+## 4 Con7  #5/4/2/95/2             28.5          44.1            19
+## 5 Con7  #4/2/95/3-3             NA            NA              20
+## 6 Con7  #2/2/95/3-2             NA            NA              20
+## # ... with 3 more variables: `Pups born alive` &lt;int&gt;, `Pups dead @
+## #   birth` &lt;int&gt;, `Pups survive` &lt;int&gt;</code></pre>
+</div>
+<div id="other-file-format" class="section level3">
+<h3>Other file format</h3>
+<div id="txt" class="section level4">
+<h4><em>txt</em></h4>
+<p>Non-csv plain text files can be handled using <code>read_table</code>, <code>read.table</code>, <code>read.delim</code>, etc. <code>txt.</code> file is the least data file I want to use because so many things can go wrong. We need to inspect the txt files and the imported tables carefully to avoid any errors.</p>
+<pre class="r"><code>litters_data2 = read.delim(file = &quot;./data/r_data_import/FAS_litters.txt&quot;, header = TRUE, sep = &quot;\t&quot;, dec = &quot;.&quot;)
+head(litters_data2)</code></pre>
+<pre><code>##   Group Litter_Number GD0_weight GD18_weight GD_of_Birth Pups_born_alive
+## 1  Con7           #85       19.7        34.7          20               3
+## 2  Con7     #1/2/95/2       27.0        42.0          19               8
+## 3  Con7 #5/5/3/83/3-3       26.0        41.4          19               6
+## 4  Con7   #5/4/2/95/2       28.5        44.1          19               5
+## 5  Con7   #4/2/95/3-3         NA          NA          20               6
+## 6  Con7   #2/2/95/3-2         NA          NA          20               6
+##   Pups_dead_._birth Pups_survive
+## 1                 4            3
+## 2                 0            7
+## 3                 0            5
+## 4                 1            4
+## 5                 0            6
+## 6                 0            4</code></pre>
+<p>We’ll encounter a lot of Excel files, <code>read_excel</code> function in <code>readxl</code> package is good. We can use it the same way as we use <code>read_csv</code>. <code>range</code> option is a handy option to select specific cell range to be imported. In addition, <code>sheet</code> option lets us choose the sheet we want to import.</p>
+<pre class="r"><code>mlb11_data = readxl::read_excel(&quot;./data/r_data_import/mlb11.xlsx&quot;)
+head(mlb11_data)</code></pre>
+<pre><code>## # A tibble: 6 x 12
+##   team   runs at_bats  hits homeruns bat_avg strikeouts stolen_bases  wins
+##   &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt;
+## 1 Texa~   855    5659  1599      210   0.283        930          143    96
+## 2 Bost~   875    5710  1600      203   0.28        1108          102    90
+## 3 Detr~   787    5563  1540      169   0.277       1143           49    95
+## 4 Kans~   730    5672  1560      129   0.275       1006          153    71
+## 5 St. ~   762    5532  1513      162   0.273        978           57    90
+## 6 New ~   718    5600  1477      108   0.264       1085          130    77
+## # ... with 3 more variables: new_onbase &lt;dbl&gt;, new_slug &lt;dbl&gt;,
+## #   new_obs &lt;dbl&gt;</code></pre>
+<p>Another tidyverse package for data import we’ll note is <code>haven</code>, which is used to import into R data files from SAS, Stata, and SPSS.</p>
+<pre class="r"><code>pulse_data = haven::read_sas(&quot;./data/r_data_import/public_pulse_data.sas7bdat&quot;)
+head(pulse_data)</code></pre>
+<pre><code>## # A tibble: 6 x 7
+##      ID   age Sex   BDIScore_BL BDIScore_01m BDIScore_06m BDIScore_12m
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
+## 1 10003  48.0 male            7            1            2            0
+## 2 10015  72.5 male            6           NA           NA           NA
+## 3 10022  58.5 male           14            3            8           NA
+## 4 10026  72.7 male           20            6           18           16
+## 5 10035  60.4 male            4            0            1            2
+## 6 10050  84.7 male            2           10           12            8</code></pre>
+</div>
+</div>
+<div id="look-at-data" class="section level3">
+<h3>Look at data</h3>
+<p>After importing and cleaning the dataset, what we want is to take a brief look at data and check for errors. Using <code>View()</code> is the same as opening the dataset in environment. If the dataset is large, it’ll take some time. We can also simply type the dataset name, or use function <code>head</code>, <code>tail</code>, <code>str</code>.</p>
+<pre class="r"><code>str(litters_data)</code></pre>
+<pre><code>## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:    49 obs. of  8 variables:
+##  $ Group            : chr  &quot;Con7&quot; &quot;Con7&quot; &quot;Con7&quot; &quot;Con7&quot; ...
+##  $ Litter Number    : chr  &quot;#85&quot; &quot;#1/2/95/2&quot; &quot;#5/5/3/83/3-3&quot; &quot;#5/4/2/95/2&quot; ...
+##  $ GD0 weight       : num  19.7 27 26 28.5 NA NA NA NA NA 28.5 ...
+##  $ GD18 weight      : num  34.7 42 41.4 44.1 NA NA NA NA NA NA ...
+##  $ GD of Birth      : int  20 19 19 19 20 20 20 20 20 20 ...
+##  $ Pups born alive  : int  3 8 6 5 6 6 9 9 8 8 ...
+##  $ Pups dead @ birth: int  4 0 0 1 0 0 0 1 0 0 ...
+##  $ Pups survive     : int  3 7 5 4 6 4 9 8 8 8 ...
+##  - attr(*, &quot;spec&quot;)=List of 2
+##   ..$ cols   :List of 8
+##   .. ..$ Group            : list()
+##   .. .. ..- attr(*, &quot;class&quot;)= chr  &quot;collector_character&quot; &quot;collector&quot;
+##   .. ..$ Litter Number    : list()
+##   .. .. ..- attr(*, &quot;class&quot;)= chr  &quot;collector_character&quot; &quot;collector&quot;
+##   .. ..$ GD0 weight       : list()
+##   .. .. ..- attr(*, &quot;class&quot;)= chr  &quot;collector_double&quot; &quot;collector&quot;
+##   .. ..$ GD18 weight      : list()
+##   .. .. ..- attr(*, &quot;class&quot;)= chr  &quot;collector_double&quot; &quot;collector&quot;
+##   .. ..$ GD of Birth      : list()
+##   .. .. ..- attr(*, &quot;class&quot;)= chr  &quot;collector_integer&quot; &quot;collector&quot;
+##   .. ..$ Pups born alive  : list()
+##   .. .. ..- attr(*, &quot;class&quot;)= chr  &quot;collector_integer&quot; &quot;collector&quot;
+##   .. ..$ Pups dead @ birth: list()
+##   .. .. ..- attr(*, &quot;class&quot;)= chr  &quot;collector_integer&quot; &quot;collector&quot;
+##   .. ..$ Pups survive     : list()
+##   .. .. ..- attr(*, &quot;class&quot;)= chr  &quot;collector_integer&quot; &quot;collector&quot;
+##   ..$ default: list()
+##   .. ..- attr(*, &quot;class&quot;)= chr  &quot;collector_guess&quot; &quot;collector&quot;
+##   ..- attr(*, &quot;class&quot;)= chr &quot;col_spec&quot;</code></pre>
+<p>I like <code>skimr::skim</code> a lot, since it is a convenient way to check the variables’ distribution, missing and simple statistics.</p>
+<pre class="r"><code>skimr::skim(litters_data)</code></pre>
+<pre><code>## Skim summary statistics
+##  n obs: 49 
+##  n variables: 8 
+## 
+## -- Variable type:character ---------------------------------------------------------------------------------------------
+##       variable missing complete  n min max empty n_unique
+##          Group       0       49 49   4   4     0        6
+##  Litter Number       0       49 49   3  15     0       49
+## 
+## -- Variable type:integer -----------------------------------------------------------------------------------------------
+##           variable missing complete  n  mean   sd p0 p25 p50 p75 p100
+##        GD of Birth       0       49 49 19.65 0.48 19  19  20  20   20
+##    Pups born alive       0       49 49  7.35 1.76  3   6   8   8   11
+##  Pups dead @ birth       0       49 49  0.33 0.75  0   0   0   0    4
+##       Pups survive       0       49 49  6.41 2.05  1   5   7   8    9
+##      hist
+##  &lt;U+2585&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2587&gt;
+##  &lt;U+2582&gt;&lt;U+2582&gt;&lt;U+2583&gt;&lt;U+2583&gt;&lt;U+2587&gt;&lt;U+2585&gt;&lt;U+2581&gt;&lt;U+2581&gt;
+##  &lt;U+2587&gt;&lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;
+##  &lt;U+2582&gt;&lt;U+2582&gt;&lt;U+2583&gt;&lt;U+2583&gt;&lt;U+2585&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2585&gt;
+## 
+## -- Variable type:numeric -----------------------------------------------------------------------------------------------
+##     variable missing complete  n  mean   sd   p0   p25   p50   p75 p100
+##   GD0 weight      15       34 49 24.38 3.28 17   22.3  24.1  26.67 33.4
+##  GD18 weight      17       32 49 41.52 4.05 33.4 38.88 42.25 43.8  52.7
+##      hist
+##  &lt;U+2581&gt;&lt;U+2583&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2586&gt;&lt;U+2581&gt;&lt;U+2581&gt;
+##  &lt;U+2582&gt;&lt;U+2583&gt;&lt;U+2583&gt;&lt;U+2587&gt;&lt;U+2586&gt;&lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2581&gt;</code></pre>
+</div>
+<div id="export-data" class="section level3">
+<h3>Export data</h3>
+<p>When we need to export data, the <code>write_*</code> functions in <code>readr</code> is useful.</p>
+<pre class="r"><code>write.csv(litters_data, file = &quot;./data/r_data_import/litters_data3.csv&quot;)</code></pre>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

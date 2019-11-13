@@ -4,7 +4,16 @@ output:
   html_document
 ---
 
+Hello, World! :D
+
 I've decided to summarize and update the codes I'm using daily here.
+I'll also include the problems I've met and the solutions for them.
+
+For R codes, most of the credits should be given to Dr. Jeff Goldsmith, my Data Scinece course (P8105) professor at Columbia.
+
+
+
+
 
 Here's a working sample Dashboard, [take a look](dashboard.html)!
 

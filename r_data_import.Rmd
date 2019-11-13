@@ -14,5 +14,158 @@ library(tidyverse)
 
 ```
 
+### Library
+
+The library I use almost all the time is `tidyverse` (there might be some conflicts with other specific packages, I'll mention that in later chapters). The `dplyer` package within are the main one we're going to use for data wrangling.
+
+### Path
+
+People have different preferences over using absolute paths or relative path. They both have their pros and cons. Since I always suggest using R projects, a relative path makes more sense in our case.
+If you are already in the R project, then a relative path can start with a "." indicating the current directory. For example, if I need to call some pups' dataset in this folder, I can do "./data/r_data_import/FAS_litters.csv".
+I always have a data folder in the project file to keep data.
+If we don't know our current working directory, we can use:
+
+```{r get_directory}
+
+getwd()
+
+```
+
+`~` stands for home directory, and `.` stands for current working directly.
+
+### Import data
+
+First let's check the most common csv files.
+
+```{r import_csv}
+
+litters_data = read_csv(file = "./data/r_data_import/FAS_litters.csv")
+head(litters_data)
+
+```
+
+I almost always use `janitor::clean_names()` to clean up variable names after importing data. Doing so will take whatever the column names are and convert them to lower snake case. The general rules for the variable names are `all lowercases`, `no space` and `easy to understand`. 
+
+```{r clean_name}
+
+names(litters_data)
+
+litters_data = janitor::clean_names(litters_data)
+names(litters_data)
+
+```
+
+The `package::function` syntax lets us use a function from a package without loading the whole library. That’s really helpful, because some packages have functions with the same name (e.g. `dplyr::filter` and `stats::filter`), and R has to choose which one we mean. In general, a good habit is to only load the packages we need to prevent this kind of confusion. 
+
+### Arguments to `read_*`
+
+In the best case, the data are stored in the csv without any weirdness – there are no blank lines or columns, the first row is the variable name, missing values are stored in sensible ways. When this isn’t the case, arguments to `read_csv` are helpful. The ones I use frequently are:
+
+* `col_names`: usually `TRUE`. If `FALSE`, column names are `X1`, `X1`, .... We can also supply column names if needed.
+* `na`: string vector containing character expressions for missing values.
+* `skip`: number of rows to skip before reading data.
+* `col_types`: assign column types to the variables.
+
+The `read_*` functions will attempt to guess the data type stored in each column; by default, these guesses are based on the first 1000 rows. The guesses are also usually pretty good. In some cases, though, we’ll want to give explicit column specifications. This is done using the `cols` function, and each column is given a column type:
+
+```{r col_type}
+
+litters_data = read_csv(file = "./data/r_data_import/FAS_litters.csv",
+  col_types = cols(
+    Group = col_character(),
+    `Litter Number` = col_character(),
+    `GD0 weight` = col_double(),
+    `GD18 weight` = col_double(),
+    `GD of Birth` = col_integer(),
+    `Pups born alive` = col_integer(),
+    `Pups dead @ birth` = col_integer(),
+    `Pups survive` = col_integer()
+  )
+)
+head(litters_data)
+
+```
+
+Column parsing also allows a shorthand for almost every data type. the common shorthands are follow:
+
+* `col_logical()` = l, `col_integer()` = i, `col_double()` = d, `col_character()` = c, `col_factor(levels, ordered)` = f, `col_date(format = "")` = D. For detailed instruction, [check here](https://readr.tidyverse.org/articles/readr.html).
+
+So we can simply enter the shorthands for column types:
+```{r col_type2}
+
+litters_data = read_csv(file = "./data/r_data_import/FAS_litters.csv",
+  col_types = "ccddiiii"
+)
+head(litters_data)
+
+
+```
+
+### Other file format
+#### *txt*
+
+Non-csv plain text files can be handled using `read_table`, `read.table`, `read.delim`, etc. `txt.` file is the least data file I want to use because so many things can go wrong. We need to inspect the txt files and the imported tables carefully to avoid any errors.
+
+```{r import_txt}
+
+litters_data2 = read.delim(file = "./data/r_data_import/FAS_litters.txt", header = TRUE, sep = "\t", dec = ".")
+head(litters_data2)
+
+```
+
+We’ll encounter a lot of Excel files, `read_excel` function in `readxl` package is good. We can use it the same way as we use `read_csv`. `range` option is a handy option to select specific cell range to be imported. In addition, `sheet` option lets us choose the sheet we want to import.
+
+```{r import_xlsx}
+
+mlb11_data = readxl::read_excel("./data/r_data_import/mlb11.xlsx")
+head(mlb11_data)
+
+```
+
+Another tidyverse package for data import we’ll note is `haven`, which is used to import into R data files from SAS, Stata, and SPSS.
+
+```{r import_sas}
+
+pulse_data = haven::read_sas("./data/r_data_import/public_pulse_data.sas7bdat")
+head(pulse_data)
+
+```
+
+### Look at data
+
+After importing and cleaning the dataset, what we want is to take a brief look at data and check for errors. 
+Using `View()` is the same as opening the dataset in environment. If the dataset is large, it'll take some time.
+We can also simply type the dataset name, or use function `head`, `tail`, `str`.
+
+```{r str}
+
+str(litters_data)
+
+```
+
+I like `skimr::skim` a lot, since it is a convenient way to check the variables' distribution, missing and simple statistics.
+
+```{r skim}
+
+skimr::skim(litters_data)
+
+```
+
+### Export data
+
+When we need to export data, the `write_*` functions in `readr` is useful.
+
+```{r data_export}
+
+write.csv(litters_data, file = "./data/r_data_import/litters_data3.csv")
+
+```
+
+
+
+
+
+
+
 
 

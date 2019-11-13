@@ -12,8 +12,6 @@ navbar:
           href: r_data_import.html
         - text: "Data Manipulation"
           href: r_data_manipulation.html
-    - text: "Resume"
-      href: resume.html
     - text: "Biochem Research"
       href: biochem.html
     - text: "About Me"

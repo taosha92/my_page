@@ -289,7 +289,13 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="r-rmarkdown.html">R Markdown Brief Review</a>
+      <a href="r_rmarkdown.html">R Markdown Brief Review</a>
+    </li>
+    <li>
+      <a href="r_data_import.html">Data Import</a>
+    </li>
+    <li>
+      <a href="r_data_manipulation.html">Data Manipulation</a>
     </li>
   </ul>
 </li>
@@ -298,6 +304,9 @@ div.tocify {
 </li>
 <li>
   <a href="biochem.html">Biochem Research</a>
+</li>
+<li>
+  <a href="about.html">About Me</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -314,7 +323,7 @@ div.tocify {
   </a>
 </li>
 <li>
-  <a href="https://twitter.com/taosha33">
+  <a href="https://www.facebook.com/profile.php?id=100004233067528">
     <span class="fa fa-facebook fa-lg"></span>
      
   </a>
@@ -341,8 +350,8 @@ div.tocify {
 
 <div id="code-chunks-and-snippets" class="section level2">
 <h2>Code chunks and snippets</h2>
-<p>The hotkeys for inserting code chunk are <span> Ctrl + Alt + I </span>, while the hotkeys for knitting are Ctrl + Shift + K.<br />
-Always give the chunk a name <span> {r chunk_name} </span>, so when we have bugs, we can look back and find that chunk immediately.</p>
+<p>The hotkeys for inserting code chunk are <code>Ctrl + Alt + I</code>, while the hotkeys for knitting are <code>Ctrl + Shift + K</code>.<br />
+Always give the chunk a name <code>{r chunk_name}</code>, so when we have bugs, we can look back and find that chunk immediately.</p>
 <p>Beyond the name, we can customize the behavior of your code chunk via options defined in the chunk header. Some common options are:</p>
 <ul>
 <li>eval = FALSE: code will be displayed but not executed; results are not included.</li>
@@ -353,16 +362,16 @@ Always give the chunk a name <span> {r chunk_name} </span>, so when we have bugs
 <li>collapse = TRUE: output will be collapsed into a single block at shown at the end of the chunk.</li>
 <li>error: errors in code will stop rendering when FALSE; errors in code will be printed in the doc when TRUE. The default is FALSE and you should almost never change it.</li>
 </ul>
-<p>Inserting brief code snippets inline is often helpful; we can use them for a brief summary of the sample size or statistics in text by inserting code inline using <span> <code>r</code> </span>, often in conjunction with the format() function to clean up the output.</p>
+<p>Inserting brief code snippets inline is often helpful; we can use them for a brief summary of the sample size or statistics in text by inserting code inline using <code>r</code>, often in conjunction with the <code>format()</code> function to clean up the output.</p>
 </div>
 <div id="problems" class="section level2">
 <h2>Problems</h2>
 <div id="line-break" class="section level4">
-<h4>1. Line break</h4>
-<p>To force a line break, there are several easy ways. We can simply place two empty spaces at the end of a line, however, it’s hard to tell when we edit the file. The way I use is to place a backslash at the end of the line.</p>
+<h4>Line break</h4>
+<p>To force a line break, there are several easy ways. We can simply place two empty spaces at the end of a line, however, it’s hard to tell when we edit the file. The way I use is to place a backslash <code>\</code> at the end of the line. In addition, if we want an empty line, we can add a <code>&lt;br&gt;</code> in that empty line.</p>
 </div>
 <div id="bulletpoints" class="section level4">
-<h4>2. Bulletpoints</h4>
+<h4>Bulletpoints</h4>
 <p>Sometimes when we use * for the bulletpoints it won’t work. It is because that it needs a blank line before the list in R Markdown if it is not directly after a header or by itself.</p>
 </div>
 </div>
