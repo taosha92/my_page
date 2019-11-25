@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Data Manipulation</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 64px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+
+.section h2 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h3 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h4 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h5 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+.section h6 {
+  padding-top: 69px;
+  margin-top: -69px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    R
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="r_rmarkdown.html">R Markdown Brief Review</a>
+    </li>
+    <li>
+      <a href="r_data_import.html">Data Import</a>
+    </li>
+    <li>
+      <a href="r_data_manipulation.html">Data Manipulation</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="biochem.html">Biochem Research</a>
+</li>
+<li>
+  <a href="about.html">About Me</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="mailto:&lt;taosha33@outlook.com&gt;">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="http://github.com/st3117/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://www.facebook.com/profile.php?id=100004233067528">
+    <span class="fa fa-facebook fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://www.linkedin.com/in/sha-tao-1787b3a7/">
+    <span class="fa fa-linkedin fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Data Manipulation</h1>
+
+</div>
+
+
+<div id="basic-data-frames" class="section level3">
+<h3>Basic Data Frames</h3>
+<p>A <code>tibble</code>, or <code>tbl_df</code>, is a modern reimagining of the data.frame. Let’s start with a simple data frame.</p>
+<pre class="r"><code># Anytime appling a random, set a seed for reproductivity
+set.seed(20191122)
+
+# Let&#39;s create a data frame including:
+# 1. A random sample of size 10 from a uniform [0, 5] distribution
+# 2. A logical vector indicating whether elements of the sample are greater than 2
+# 3. A (length-10) character vector
+# 4. A (length-10) factor vector
+data1 = tibble(
+  vec_unif = runif(10, min = 0, max = 5),
+  vec_logical = vec_unif &gt; 2,
+  vec_char = c(&quot;My&quot;, &quot;name&quot;, &quot;is&quot;, &quot;Sha&quot;, &quot;Tao&quot;, &quot;and&quot;, &quot;I&quot;, &quot;like&quot;, &quot;Data&quot;, &quot;Science&quot;),
+  vec_factor = factor(c(&quot;low&quot;, &quot;low&quot;, &quot;low&quot;, &quot;high&quot;, &quot;high&quot;, &quot;low&quot;, &quot;low&quot;, &quot;low&quot;, &quot;high&quot;, &quot;high&quot;))
+)
+data1</code></pre>
+<pre><code>## # A tibble: 10 x 4
+##    vec_unif vec_logical vec_char vec_factor
+##       &lt;dbl&gt; &lt;lgl&gt;       &lt;chr&gt;    &lt;fct&gt;     
+##  1     4.85 TRUE        My       low       
+##  2     1.20 FALSE       name     low       
+##  3     4.05 TRUE        is       low       
+##  4     1.92 FALSE       Sha      high      
+##  5     1.55 FALSE       Tao      high      
+##  6     1.44 FALSE       and      low       
+##  7     2.68 TRUE        I        low       
+##  8     3.44 TRUE        like     low       
+##  9     3.92 TRUE        Data     high      
+## 10     2.80 TRUE        Science  high</code></pre>
+<pre class="r"><code># Try to take the mean of the numeric variable
+mean(data1$vec_unif)</code></pre>
+<pre><code>## [1] 2.78443</code></pre>
+<pre class="r"><code># Try to take the mean of the logical variable
+mean(data1$vec_logical)</code></pre>
+<pre><code>## [1] 0.6</code></pre>
+<p>The first two vectors work because a uniform [0, 5] distribution is numeric, and “true” and “false” in logical vectors are treated as 1 and 0. Means cannot be taken from the character vector and factor vector.</p>
+</div>
+<div id="piping" class="section level3">
+<h3>Piping</h3>
+<p><code>%&gt;%</code> is one of the most important function in R comparing to SAS, and it’s one of the main reasons that I prefer to use R.</p>
+</div>
+<div id="common-functions" class="section level3">
+<h3>Common Functions</h3>
+<p>We’ll use some common functions in data manipulation. First import dataset we used last time:</p>
+<pre class="r"><code>litters_data = read_csv(file = &quot;./data/r_data_import/FAS_litters.csv&quot;) %&gt;% 
+  janitor::clean_names()</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   Group = col_character(),
+##   `Litter Number` = col_character(),
+##   `GD0 weight` = col_double(),
+##   `GD18 weight` = col_double(),
+##   `GD of Birth` = col_integer(),
+##   `Pups born alive` = col_integer(),
+##   `Pups dead @ birth` = col_integer(),
+##   `Pups survive` = col_integer()
+## )</code></pre>
+<div id="select" class="section level4">
+<h4><code>select</code></h4>
+<p>We can select desired columns by naming them.</p>
+<pre class="r"><code>litters_data %&gt;% 
+  select(group, litter_number, gd0_weight, pups_born_alive)</code></pre>
+<pre><code>## # A tibble: 49 x 4
+##    group litter_number   gd0_weight pups_born_alive
+##    &lt;chr&gt; &lt;chr&gt;                &lt;dbl&gt;           &lt;int&gt;
+##  1 Con7  #85                   19.7               3
+##  2 Con7  #1/2/95/2             27                 8
+##  3 Con7  #5/5/3/83/3-3         26                 6
+##  4 Con7  #5/4/2/95/2           28.5               5
+##  5 Con7  #4/2/95/3-3           NA                 6
+##  6 Con7  #2/2/95/3-2           NA                 6
+##  7 Con7  #1/5/3/83/3-3/2       NA                 9
+##  8 Con8  #3/83/3-3             NA                 9
+##  9 Con8  #2/95/3               NA                 8
+## 10 Con8  #3/5/2/2/95           28.5               8
+## # ... with 39 more rows</code></pre>
+<p>We can select a group of desired columns.</p>
+<pre class="r"><code>litters_data %&gt;%
+  select(group:gd_of_birth)</code></pre>
+<pre><code>## # A tibble: 49 x 5
+##    group litter_number   gd0_weight gd18_weight gd_of_birth
+##    &lt;chr&gt; &lt;chr&gt;                &lt;dbl&gt;       &lt;dbl&gt;       &lt;int&gt;
+##  1 Con7  #85                   19.7        34.7          20
+##  2 Con7  #1/2/95/2             27          42            19
+##  3 Con7  #5/5/3/83/3-3         26          41.4          19
+##  4 Con7  #5/4/2/95/2           28.5        44.1          19
+##  5 Con7  #4/2/95/3-3           NA          NA            20
+##  6 Con7  #2/2/95/3-2           NA          NA            20
+##  7 Con7  #1/5/3/83/3-3/2       NA          NA            20
+##  8 Con8  #3/83/3-3             NA          NA            20
+##  9 Con8  #2/95/3               NA          NA            20
+## 10 Con8  #3/5/2/2/95           28.5        NA            20
+## # ... with 39 more rows</code></pre>
+<p>We can select desired columns by removing unwanted ones.</p>
+<pre class="r"><code>litters_data %&gt;% 
+  select(-pups_survive)</code></pre>
+<pre><code>## # A tibble: 49 x 7
+##    group litter_number gd0_weight gd18_weight gd_of_birth pups_born_alive
+##    &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;       &lt;dbl&gt;       &lt;int&gt;           &lt;int&gt;
+##  1 Con7  #85                 19.7        34.7          20               3
+##  2 Con7  #1/2/95/2           27          42            19               8
+##  3 Con7  #5/5/3/83/3-3       26          41.4          19               6
+##  4 Con7  #5/4/2/95/2         28.5        44.1          19               5
+##  5 Con7  #4/2/95/3-3         NA          NA            20               6
+##  6 Con7  #2/2/95/3-2         NA          NA            20               6
+##  7 Con7  #1/5/3/83/3-~       NA          NA            20               9
+##  8 Con8  #3/83/3-3           NA          NA            20               9
+##  9 Con8  #2/95/3             NA          NA            20               8
+## 10 Con8  #3/5/2/2/95         28.5        NA            20               8
+## # ... with 39 more rows, and 1 more variable: pups_dead_birth &lt;int&gt;</code></pre>
+<p>We can rename variables as part of the select process.</p>
+<pre class="r"><code>litters_data %&gt;% 
+  select(group1 = group, litter_number2 = litter_number)</code></pre>
+<pre><code>## # A tibble: 49 x 2
+##    group1 litter_number2 
+##    &lt;chr&gt;  &lt;chr&gt;          
+##  1 Con7   #85            
+##  2 Con7   #1/2/95/2      
+##  3 Con7   #5/5/3/83/3-3  
+##  4 Con7   #5/4/2/95/2    
+##  5 Con7   #4/2/95/3-3    
+##  6 Con7   #2/2/95/3-2    
+##  7 Con7   #1/5/3/83/3-3/2
+##  8 Con8   #3/83/3-3      
+##  9 Con8   #2/95/3        
+## 10 Con8   #3/5/2/2/95    
+## # ... with 39 more rows</code></pre>
+<p>If all we want to do is renaming, then we can use <code>rename</code>.</p>
+<pre class="r"><code>litters_data %&gt;% 
+  rename(group1 = group, litter_number2 = litter_number)</code></pre>
+<pre><code>## # A tibble: 49 x 8
+##    group1 litter_number2 gd0_weight gd18_weight gd_of_birth pups_born_alive
+##    &lt;chr&gt;  &lt;chr&gt;               &lt;dbl&gt;       &lt;dbl&gt;       &lt;int&gt;           &lt;int&gt;
+##  1 Con7   #85                  19.7        34.7          20               3
+##  2 Con7   #1/2/95/2            27          42            19               8
+##  3 Con7   #5/5/3/83/3-3        26          41.4          19               6
+##  4 Con7   #5/4/2/95/2          28.5        44.1          19               5
+##  5 Con7   #4/2/95/3-3          NA          NA            20               6
+##  6 Con7   #2/2/95/3-2          NA          NA            20               6
+##  7 Con7   #1/5/3/83/3-3~       NA          NA            20               9
+##  8 Con8   #3/83/3-3            NA          NA            20               9
+##  9 Con8   #2/95/3              NA          NA            20               8
+## 10 Con8   #3/5/2/2/95          28.5        NA            20               8
+## # ... with 39 more rows, and 2 more variables: pups_dead_birth &lt;int&gt;,
+## #   pups_survive &lt;int&gt;</code></pre>
+<p>Another common function that is quite useful is <code>everything()</code>, we can use it to rearrange the column order easily.</p>
+<pre class="r"><code>litters_data %&gt;% 
+  select(litter_number, group, everything())</code></pre>
+<pre><code>## # A tibble: 49 x 8
+##    litter_number group gd0_weight gd18_weight gd_of_birth pups_born_alive
+##    &lt;chr&gt;         &lt;chr&gt;      &lt;dbl&gt;       &lt;dbl&gt;       &lt;int&gt;           &lt;int&gt;
+##  1 #85           Con7        19.7        34.7          20               3
+##  2 #1/2/95/2     Con7        27          42            19               8
+##  3 #5/5/3/83/3-3 Con7        26          41.4          19               6
+##  4 #5/4/2/95/2   Con7        28.5        44.1          19               5
+##  5 #4/2/95/3-3   Con7        NA          NA            20               6
+##  6 #2/2/95/3-2   Con7        NA          NA            20               6
+##  7 #1/5/3/83/3-~ Con7        NA          NA            20               9
+##  8 #3/83/3-3     Con8        NA          NA            20               9
+##  9 #2/95/3       Con8        NA          NA            20               8
+## 10 #3/5/2/2/95   Con8        28.5        NA            20               8
+## # ... with 39 more rows, and 2 more variables: pups_dead_birth &lt;int&gt;,
+## #   pups_survive &lt;int&gt;</code></pre>
+<p>Check the functions <code>starts_with()</code>, <code>ends_with()</code>, and <code>contains()</code> which are handy in large datasets. In addition, <code>select</code> will export a dataframe even if you only select one column. To pull a single variable, use function <code>pull</code>.</p>
+</div>
+<div id="filter" class="section level4">
+<h4><code>filter</code></h4>
+<p>We will often filter using comparison operators (<code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>==</code>, and <code>!=</code>). We may also use <code>%in%</code> to detect if values appear in a set, and <code>is.na()</code> to find missing values. The results of comparisons are logical – the statement is <code>TRUE</code> or <code>FALSE</code>, and can be combined with other comparisons using the logical operators <code>&amp;</code> and <code>|</code>, or negated using <code>!</code>.</p>
+<p>Here are some of the filters we may use in the example dataset:</p>
+<ul>
+<li><code>gd_of_birth == 20</code></li>
+<li><code>pups_born_alive &gt;= 2</code></li>
+<li><code>pups_survive != 4</code></li>
+<li><code>!(pups_survive == 4)</code></li>
+<li><code>group %in% c(&quot;Con7&quot;, &quot;Con8&quot;)</code></li>
+<li><code>group == &quot;Con7&quot; &amp; gd_of_birth == 20</code></li>
+</ul>
+<p><code>drop_na()</code> is a good function to omit missing observations.</p>
+<ul>
+<li><code>drop_na(litters_data)</code> will remove any row with a missing value.</li>
+<li><code>drop_na(litters_data, wt_increase)</code> will remove rows for which wt_increase is missing.</li>
+</ul>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

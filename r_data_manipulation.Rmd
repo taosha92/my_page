@@ -7,14 +7,24 @@ output:
 ---
 
 ```{r setup, include=FALSE}
+
 knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+
 ```
 
-```{r problem1_1 }
+### Basic Data Frames
 
-set.seed(1)
+A `tibble`, or `tbl_df`, is a modern reimagining of the data.frame.
+Let's start with a simple data frame.
 
-# Create a data frame including:
+```{r tibble}
+
+# Anytime appling a random, set a seed for reproductivity
+set.seed(20191122)
+
+# Let's create a data frame including:
 # 1. A random sample of size 10 from a uniform [0, 5] distribution
 # 2. A logical vector indicating whether elements of the sample are greater than 2
 # 3. A (length-10) character vector
@@ -25,6 +35,7 @@ data1 = tibble(
   vec_char = c("My", "name", "is", "Sha", "Tao", "and", "I", "like", "Data", "Science"),
   vec_factor = factor(c("low", "low", "low", "high", "high", "low", "low", "low", "high", "high"))
 )
+data1
 
 # Try to take the mean of the numeric variable
 mean(data1$vec_unif)
@@ -32,73 +43,235 @@ mean(data1$vec_unif)
 # Try to take the mean of the logical variable
 mean(data1$vec_logical)
 
-# mean(data1$vec_char) doesn't work
-# mean(vec_factor) doesn't work
 ```
 
-The first two vectors work because a uniform [0, 5] distribution is numeric, and "true" and "false" in logical vectors are treated as 1 and 0. \
+The first two vectors work because a uniform [0, 5] distribution is numeric, and "true" and "false" in logical vectors are treated as 1 and 0.
 Means cannot be taken from the character vector and factor vector.
 
+### Piping
 
-## Problem 1_2 The chunk below converts variables from one type to another.
+` %>% ` is one of the most important function in R comparing to SAS, and it's one of the main reasons that I prefer to use R.
 
-```{r problem 1_2, results = "hide"}
+### Common Functions
 
-#applies the as.numeric function to the logical, character, and factor variables
-as.numeric(data1$vec_logical)
-as.numeric(data1$vec_char)
-as.numeric(data1$vec_factor)
+We'll use some common functions in data manipulation.
+First import dataset we used last time:
 
-```
+```{r import}
 
-logical vector can be convert to numeric, and "true" and "flase"" are treated as 1 and 0.\
-For factor vectors, R re-orders the factors alphabetically, and assigns numeric numbers to each level. In my case, it assigns 1 to "high" and 2 to "low"."\
-Function as.numeric cannot treat character vector in my case and it returns 10 "NA"s. However, if I use number "1", "2" as my character vector, then it will return as numeric vector 1, 2.
+litters_data = read_csv(file = "./data/r_data_import/FAS_litters.csv") %>% 
+  janitor::clean_names()
 
-
-## Problem 1_3 The chunk below does a two-step converting.
-
-```{r problem 1_3}
-
-# Convert character variable from character to factor to numeric
-as.numeric(as.factor(data1$vec_char))
-
-# Convert factor variable from factor to character to numeric
-as.numeric(as.character(data1$vec_factor))
-```
-
-In the first case, function as.factor converts my character vector to a factor vector. Then function as.numeric reorders the  factors alphabetically, and assigns numeric numbers to each level.\
-In the second case, function as.character converts my factor vector to a character vector, thus cannot be treated and returns 10 "NA"s.
-
-
-## Problem 2_1 The chunks below creates a data frame for later plotting.
-
-```{r problem 2_1}
-
-set.seed(2)
-
-# Create a random sample x of size 1000 from a standard Normal distribution
-x = rnorm(1000)
-
-# Create a random sample y of size 1000 from a standard Normal distribution
-y = rnorm(1000)
-
-# Create a data frame including:
-# 1. x  2. y
-# 3. A logical vector indicating whether the x + y > 0
-# 4. A numeric vector by coercing the above logical vector
-# 5. A factor vector created by coercing the above logical vector
-data2 = tibble(
-  x,
-  y,
-  xy_logical = x + y > 0,
-  xy_numeric = as.numeric(xy_logical),
-  xy_factor = as.factor(xy_numeric)
-)
+pulse_data = haven::read_sas("./data/r_data_import/public_pulse_data.sas7bdat") %>%
+  janitor::clean_names()
 
 ```
 
-The dataset "data2" is a `r ncol(data2)` by `r nrow(data2)` table.\
-The mean of the variable x is `r round(mean(data2$x), digit = 2)`, while the median of the variable x is `r round(median(data2$x), digit = 2)`.\
-There is `r (sum(data2$xy_numeric)/1000)*100`% of cases which the logical vector "x + y > 0" is true.
+
+#### `select`
+
+We can select desired columns by naming them.
+
+```{r select1}
+
+litters_data %>% 
+  select(group, litter_number, gd0_weight, pups_born_alive) %>% 
+  head()
+
+```
+
+We can select a group of desired columns.
+
+```{r select2}
+
+litters_data %>%
+  select(group:gd_of_birth) %>% 
+  head()
+
+```
+
+We can select desired columns by removing unwanted ones.
+
+```{r select3}
+
+litters_data %>% 
+  select(-pups_survive) %>% 
+  head()
+
+```
+
+We can rename variables as part of the select process.
+
+```{r select4}
+
+litters_data %>% 
+  select(group1 = group, litter_number2 = litter_number) %>% 
+  head()
+
+```
+
+If all we want to do is renaming, then we can use `rename`.
+
+```{r select5}
+
+litters_data %>% 
+  rename(group1 = group, litter_number2 = litter_number)
+
+```
+
+Another common function that is quite useful is `everything()`, we can use it to rearrange the column order easily.
+
+```{r select6}
+
+litters_data %>% 
+  select(litter_number, group, everything())
+
+```
+
+Check the functions `starts_with()`, `ends_with()`, and `contains()` which are handy in large datasets.
+In addition,  `select` will export a dataframe even if you only select one column. To pull a single variable, use function `pull`.
+
+#### `filter`
+
+We will often filter using comparison operators (`>`, `>=`, `<`, `<=`, `==`, and `!=`). We may also use `%in%` to detect if values appear in a set, and `is.na()` to find missing values. 
+The results of comparisons are logical – the statement is `TRUE` or `FALSE`, and can be combined with other comparisons using the logical operators `&` and `|`, or negated using `!`.
+
+Here are some of the filters we may use in the example dataset:
+
+* `gd_of_birth == 20`
+* `pups_born_alive >= 2`
+* `pups_survive != 4`
+* `!(pups_survive == 4)`
+* `group %in% c("Con7", "Con8")`
+* `group == "Con7" & gd_of_birth == 20`
+
+`drop_na()` is a good function to omit missing observations.
+
+* `drop_na(litters_data)` will remove any row with a missing value.
+* `drop_na(litters_data, wt_increase)` will remove rows for which wt_increase is missing.
+
+#### `mutate`
+
+`mutate` is the function we use to change or create variables. Here's an example.
+
+```{r mutate1}
+
+litters_data %>%
+  mutate(wt_gain = gd18_weight - gd0_weight,
+  group = str_to_lower(group)
+  ) %>% 
+  head()
+
+```
+
+`stringr` is a great package. `str_to_lower()` convert variables to all lower case, there are also functions `str_to_upper()`, `str_to_title()`, `str_to_sentence()`.
+
+#### `arrange`
+
+We can arrange the rows in your data according to the values in one or more columns.
+
+```{r arrange}
+
+litters_data %>% 
+  arrange(group, pups_born_alive) %>% 
+  head(10)
+
+```
+
+#### Transposing wide to long, `gather` & `pivot_longer`
+
+To make dataset "tidy", we need to do some transposing. I used to use `gather` function a lot, but nowadays it seems people use `pivot_longer` more often. I'll introduce both of them here.
+
+```{r transpose1}
+
+pulse_tidy1 = 
+  pulse_data %>% 
+  gather(key = visit, value = bdi, bdi_score_bl:bdi_score_12m) %>% 
+  arrange(id)
+
+pulse_tidy1 %>% 
+  head(10)
+
+```
+
+As you can see that the wide "untidy" form becomes a long "tidy" form. For the variable `visit`, the original column names were informative but we probably don’t need to keep the `bdi_score_ prefix` in each case.
+
+```{r transpose2}
+
+pulse_tidy1 = 
+  pulse_tidy1 %>% 
+  mutate(visit = str_replace(visit, "bdi_score_", "")) %>% 
+  arrange(id)
+
+pulse_tidy1 %>% 
+  head(10)
+
+```
+
+Now the data looks much better. However, it seems that `sex` and `visit` are in the form of character but not factor. Also, we may want to change `bl` to `00m` for consistency across visits. 
+
+```{r transpose3}
+
+pulse_tidy1 = 
+  pulse_tidy1 %>% 
+  mutate(sex = factor(sex),
+         visit = replace(visit, visit == "bl", "00m"),
+         visit = factor(visit, levels = str_c(c("00", "01", "06", "12"), "m"))) %>%
+  arrange(id, visit)
+
+pulse_tidy1 %>% 
+  head(10)
+
+```
+
+Now the dataset looks even better, and is ready to be analyzed. Let's put the steps together:
+
+```{r transpose4}
+
+pulse_tidy1 = 
+  pulse_data %>% 
+  gather(key = visit, value = bdi, bdi_score_bl:bdi_score_12m) %>% 
+  mutate(sex = factor(sex),
+         visit = str_replace(visit, "bdi_score_", ""),
+         visit = replace(visit, visit == "bl", "00m"),
+         visit = factor(visit, levels = str_c(c("00", "01", "06", "12"), "m"))) %>% 
+  arrange(id, visit)
+
+pulse_tidy1 %>% 
+  head(10)
+
+```
+
+What about `pivot_longer`?
+
+```{r transpose5}
+
+pulse_tidy2 = 
+  pulse_data %>%
+  pivot_longer(bdi_score_bl:bdi_score_12m,
+               names_to = "visit",
+               names_prefix = "bdi_score_",
+               values_to = "bdi") %>%
+  select(id, visit, everything()) %>%
+  mutate(
+    visit = replace(visit, visit == "bl", "00m"),
+    visit = factor(visit, levels = str_c(c("00", "01", "06", "12"), "m"))) %>%
+  arrange(id, visit)
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

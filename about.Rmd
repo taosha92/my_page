@@ -10,6 +10,6 @@ I'm a Biostatistician / Data Analyst working at [A.J. Drexel Autism Institute](h
 
 I graduated from Columbia University in 2019 with a master degree in Biostatistics. I also had a certificate in Advanced Epidemiology. My research was on the topic [cognitive reserve](https://www.health.harvard.edu/mind-and-mood/what-is-cognitive-reserve) in Alzheimer's disease, and performing neuro-image data analysis at [New York State Psychiatric Institute](https://nyspi.org/).
 
-I graduated from Michigan State University with a BS in biochemisty and molucular biology in 2016. I was doing plant research at that time, and studied gene RHD3 for years.
+I graduated from Michigan State University with a BS in biochemisty and molecular biology in 2016. I was doing plant research at that time, and studied gene RHD3 for years.
 
 I'm a Python, R and SAS programmer. I'd like to be a data scientist!
